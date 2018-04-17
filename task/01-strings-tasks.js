@@ -20,8 +20,8 @@
  *   '',  'bb'  => 'bb'
  */
 export function concatenateStrings(value1, value2) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let concatenatedString = value1 + value2;
+  return concatenatedString;
 }
 
 /**
