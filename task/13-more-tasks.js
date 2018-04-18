@@ -12,8 +12,7 @@
  *   'abcdefghijklmnop',  'lmnopqrstuvwxyz'  => 'abcdefghijklmnopqrstuvwxyz'
  */
 export function distinctLettersString(value1, value2) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return (value1 + value2).split('').sort().filter((item, i, ar) => ar.indexOf(item) === i).join('');
 }
 
 
