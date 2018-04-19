@@ -18,9 +18,60 @@
 export function createCompassPoints(sides = ['N', 'E', 'S', 'W']) {
   /* implement your code here */
   /* use array of cardinal directions only! it is a default parameter! */
-  throw new Error('Not implemented');
-}
+  let doubleArray = function(v, i, a) {
+    a.splice(1 + 2 * i, 0, undefined);
+  };
 
+  let concatDirections = function(v, i, a) {
+    if (!v && (i + 1 !== a.length)) {
+      if ((i + 1) % 4 === 0) {
+        a[i] = a[i + 1] + a[i - 1]; 
+      } else {
+        a[i] = a[i - 1] + a[i + 1];
+      }
+    } else if (i + 1 === a.length) {
+      a[i] = a[0] + a[i - 1];
+    }
+  };
+
+  let createByDirections = function(v, i, a) {
+    if (!v && (i + 7 < a.length)) {
+      if ((i + 1) % 8 === 0) {
+        a[i] = a[i + 1] + 'b' + a[i - 7]; 
+      } else if ((i + 1) % 8 === 2) {
+        a[i] = a[i - 1] + 'b' + a[i + 7];
+      } else if ((i + 1) % 8 === 4) {
+        a[i] = a[i + 1] + 'b' + a[i - 3];
+      } else if ((i + 1) % 8 === 6) {
+        a[i] = a[i - 1] + 'b' + a[i + 3];
+      } 
+    } else if (i + 7 >= a.length) {
+      if ((i + 1) % 8 === 0) {
+        a[i] = a[0] + 'b' + a[i - 7]; 
+      } else if ((i + 1) % 8 === 2) {
+        a[i] = a[i - 1] + 'b' + a[0];
+      } else if ((i + 1) % 8 === 4) {
+        a[i] = a[i + 1] + 'b' + a[i - 3];
+      } else if ((i + 1) % 8 === 6) {
+        a[i] = a[i - 1] + 'b' + a[0];
+      } 
+    }
+  };
+
+  sides.forEach(doubleArray);
+  sides.forEach(concatDirections);
+  sides.forEach(doubleArray);
+  sides.forEach(concatDirections);
+  sides.forEach(doubleArray);
+  sides.forEach(createByDirections);
+
+  return sides.map(function(v, i) {
+    let obj = {};
+    obj.abbreviation = v;
+    obj.azimuth = i * 11.25;
+    return obj;
+  });
+}
 
 /**
  * Expand the braces of the specified string.
