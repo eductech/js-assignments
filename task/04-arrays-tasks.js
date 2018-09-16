@@ -22,8 +22,7 @@
  *    [0, 1, 2, 3, 4, 5], 5    => 5
  */
 export function findElement(arr, value) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.indexOf(value);
 }
 
 /**
@@ -38,8 +37,9 @@ export function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 export function generateOdds(len) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let arr = new Array(len);
+  const generateOdd = (currentValue, index) => 1 + 2 * index;
+  return arr.join().split(',').map(generateOdd);
 }
 
 

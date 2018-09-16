@@ -21,8 +21,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 export function parseDataFromRfc2822(value) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return new Date(value);
 }
 
 /**
@@ -37,8 +36,7 @@ export function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 export function parseDataFromIso8601(value) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return new Date(value);
 }
 
 
@@ -57,8 +55,15 @@ export function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 export function isLeapYear(date) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let year = date.getFullYear();
+  if (year % 4 !== 0) {
+    return false;
+  } else if (year % 100 !== 0) {
+    return true;    
+  } else if (year % 400 !== 0) {
+    return false;
+  } 
+  return true;
 }
 
 
@@ -78,8 +83,26 @@ export function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 export function timeSpanToString(startDate, endDate) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let dif = new Date(endDate.getTime() - startDate.getTime() + timezoneOffset());
+  return clock(dif);
+
+  function clock(time) {
+    let hour = time.getHours();
+    let minute = time.getMinutes();
+    let second = time.getSeconds();
+    let millisecond = time.getMilliseconds();
+
+    let temp = ((hour < 10) ? '0' + hour : hour);
+    temp += ((minute < 10) ? ':0' : ':') + minute;
+    temp += ((second < 10) ? ':0' : ':') + second;
+    temp += ((millisecond < 100) ? '.0' : '.') + ((millisecond < 10) ? '0' + millisecond : millisecond);
+
+    return temp;
+  }
+
+  function timezoneOffset() {
+    return (new Date()).getTimezoneOffset() * 60000;
+  }
 }
 
 
@@ -98,6 +121,10 @@ export function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 export function angleBetweenClockHands(date) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let hours = date.getHours() + date.getTimezoneOffset() / 60;
+  if (hours > 11) hours -= 12;
+  let minutes = date.getMinutes();
+  let angleBetweenHands = Math.abs(0.5 * (60 * hours - 11 * minutes));
+  angleBetweenHands = (angleBetweenHands > 180) ? 360 - angleBetweenHands : angleBetweenHands;
+  return angleBetweenHands * Math.PI / 180;
 }
