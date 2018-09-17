@@ -25,8 +25,7 @@
  *
  */
 export function getComposition(f, g) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return x => f(g(x));
 }
 
 
@@ -47,8 +46,7 @@ export function getComposition(f, g) {
  *
  */
 export function getPowerFunction(exponent) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return x => Math.pow(x, exponent);
 }
 
 
@@ -65,9 +63,13 @@ export function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-export function getPolynom() {
-  /* implement your code here */
-  throw new Error('Not implemented');
+export function getPolynom(...args) {
+  if (!args) {
+    return args;
+  } else {
+    args.reverse();
+  }
+  return x => args.reduce((acc, el, ind) => el * Math.pow(x, ind), 0);
 }
 
 
@@ -86,10 +88,14 @@ export function getPolynom() {
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
 export function memoize(func) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let cache = {};
+  return () => {
+    if (!cache.res) {
+      cache.res = func();
+    }
+    return cache.res;
+  };
 }
-
 
 /**
  * Returns the function trying to call the passed function and if it throws,
@@ -154,9 +160,8 @@ export function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-export function partialUsingArguments(fn) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+export function partialUsingArguments(fn, ...args1) {
+  return (...args2) => fn(...args1, ...args2);
 }
 
 
@@ -178,6 +183,5 @@ export function partialUsingArguments(fn) {
  *   getId10() => 11
  */
 export function getIdGeneratorFunction(startFrom) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return () => startFrom++;
 }
