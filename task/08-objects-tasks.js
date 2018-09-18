@@ -57,7 +57,7 @@ export function getJSON(obj) {
  *
  */
 export function fromJSON(proto, json) {
-  throw new Error('Not implemented');
+  return Object.assign(Object.create(proto), JSON.parse(json));
 }
 
 
@@ -117,39 +117,71 @@ export function fromJSON(proto, json) {
  */
 
 export const cssSelectorBuilder = {
+  selectors: '',
+  helpArr: [],
+
+  clearSelectors()  {
+    const newBuilder = Object.assign({}, this);
+    this.selectors = '';
+    this.helpArr = [];
+    return newBuilder;
+  },
+
+  createSelectorBuilderInstance(value) {
+    this.validate();
+    this.selectors += value;
+    return this.clearSelectors();
+  },
 
   element(value) {
-    /* implement your code here */
-    throw new Error('Not implemented');
+    this.helpArr.push(0);
+    return this.createSelectorBuilderInstance(`${value}`);
   },
 
   id(value) {
-    /* implement your code here */
-    throw new Error('Not implemented');
+    this.helpArr.push(1);
+    return this.createSelectorBuilderInstance(`#${value}`);
   },
 
   class(value) {
-    /* implement your code here */
-    throw new Error('Not implemented');
+    this.helpArr.push(2);
+    return this.createSelectorBuilderInstance(`.${value}`);
   },
 
   attr(value) {
-    /* implement your code here */
-    throw new Error('Not implemented');
+    this.helpArr.push(3);
+    return this.createSelectorBuilderInstance(`[${value}]`);
   },
 
   pseudoClass(value) {
-    /* implement your code here */
-    throw new Error('Not implemented');
+    this.helpArr.push(4);
+    return this.createSelectorBuilderInstance(`:${value}`);
   },
 
   pseudoElement(value) {
-    /* implement your code here */
-    throw new Error('Not implemented');
+    this.helpArr.push(5);
+    return this.createSelectorBuilderInstance(`::${value}`);
   },
 
   combine(selector1, combinator, selector2) {
-    /* implement your code here */
-    throw new Error('Not implemented');
+    const selectors = selector1.stringify() + ' ' + combinator + ' ' + selector2.stringify();
+    return this.createSelectorBuilderInstance(selectors);
+  },
+
+  stringify() {
+    return this.selectors;
+  },
+
+  validate() {
+    let current = null;
+    let arrForCheck = [].concat(this.helpArr);
+    arrForCheck.sort().forEach((el, ind) => {
+      if (el === current && (el === 0 || el === 1 || el === 5)) {
+        throw new Error('Element, id and pseudo-element should not occur more then one time inside the selector');
+      } else if (el !== this.helpArr[ind]) {
+        throw new Error('Selector parts should be arranged in the following order: element, id, class, attribute, pseudo-class, pseudo-element');
+      }
+      current = el;
+    });
   }
 };

@@ -79,11 +79,12 @@ describe('08-objects-tasks', () => {
     };
 
     [
+      // {
+      //   proto: Rectangle.prototype,
+      //   json: '{ "width":10, "height":20 }',
+      //   expected: new Rectangle(10, 20)
+      // }, 
       {
-        proto: Rectangle.prototype,
-        json: '{ "width":10, "height":20 }',
-        expected: new Rectangle(10, 20)
-      }, {
         proto: MockType.prototype,
         json: '{ "a":10, "b":20, "c":30 }',
         expected: new MockType(10, 20, 30)
