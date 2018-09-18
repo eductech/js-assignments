@@ -113,8 +113,17 @@ export function memoize(func) {
  * retryer() => 2
  */
 export function retry(func, attempts) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return () => {
+    while (attempts > 0) {
+      try {
+        return func();
+      } catch (error) {
+        attempts--;
+        continue;
+      }
+    }
+
+  };
 }
 
 

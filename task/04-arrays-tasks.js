@@ -278,8 +278,10 @@ export function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 export function propagateItemsByPositionIndex(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  const newArr = arr.map((el, ind) => {
+    return new Array(ind + 1).fill(el);
+  });
+  return newArr.reduce((acc, el) => acc.concat(el), []);
 }
 
 
@@ -297,8 +299,7 @@ export function propagateItemsByPositionIndex(arr) {
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
 export function get3TopItems(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.sort((a, b) => a > b ? -1 : 1).slice(0, 3);
 }
 
 
@@ -316,8 +317,11 @@ export function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 export function getPositivesCount(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.reduce((acc, el) => { 
+    if (typeof el === 'number') {
+      return el > 0 ? acc + 1 : acc;
+    }
+  }, 0);
 }
 
 /**
@@ -351,8 +355,7 @@ export function sortDigitNamesByNumericOrder(arr) {
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
 export function getItemsSum(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.reduce((acc, el) => acc + el, 0);
 }
 
 /**
@@ -368,8 +371,7 @@ export function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 export function getFalsyValuesCount(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.reduce((acc, el) => !el ? acc + 1 : acc, 0);
 }
 
 /**
@@ -387,8 +389,7 @@ export function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 export function findAllOccurences(arr, item) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.reduce((acc, el) => el === item ? acc + 1 : acc, 0);
 }
 
 /**
@@ -403,8 +404,7 @@ export function findAllOccurences(arr, item) {
  *    ['rock', 'paper', 'scissors']     => 'rock,paper,scissors'
  */
 export function toStringList(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.toString();
 }
 
 
