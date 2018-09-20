@@ -29,10 +29,11 @@
  *
  */
 export function getFizzBuzz(num) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let str = '';
+  str += (num % 3 === 0) ? 'Fizz' : ''; 
+  str += (num % 5 === 0) ? 'Buzz' : ''; 
+  return str ? str : num ;
 }
-
 
 /**
  * Returns the factorial of the specified integer n.
@@ -46,8 +47,10 @@ export function getFizzBuzz(num) {
  *   10 => 3628800
  */
 export function getFactorial(n) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  const factorial = n => {
+    return (n !== 1) ? n * factorial(n - 1) : 1;
+  };
+  return factorial(n);
 }
 
 
@@ -64,10 +67,12 @@ export function getFactorial(n) {
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
 export function getSumBetweenNumbers(n1, n2) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let sum = 0;
+  for (n1; n1 <= n2; n1++) {
+    sum += n1;
+  }
+  return sum;
 }
-
 
 /**
  * Returns true, if a triangle can be built with the specified sides a,b,c and false 
@@ -85,10 +90,11 @@ export function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 export function isTriangle(a, b, c) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  const cond1 = a + b > c;
+  const cond2 = a + c > b;
+  const cond3 = c + b > a;
+  return cond1 && cond2 && cond3;
 }
-
 
 /**
  * Returns true, if two specified axis-aligned rectangles overlap, otherwise false.
@@ -414,8 +420,20 @@ export function getCommonDirectoryPath(pathes) {
  *
  */
 export function getMatrixProduct(m1, m2) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  let m1Rows = m1.length; 
+  let m1Cols = m1[0].length;
+  let m2Cols = m2[0].length;
+  const m = new Array(m1Rows);
+  for (let r = 0; r < m1Rows; ++r) {
+    m[r] = new Array(m2Cols);
+    for (let c = 0; c < m2Cols; ++c) {
+      m[r][c] = 0;   
+      for (let i = 0; i < m1Cols; ++i) {
+        m[r][c] += m1[r][i] * m2[i][c];
+      }
+    }
+  }
+  return m;
 }
 
 
