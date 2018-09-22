@@ -64,12 +64,9 @@ export function getPowerFunction(exponent) {
  *   getPolynom()      => null
  */
 export function getPolynom(...args) {
-  if (!args) {
-    return args;
-  } else {
-    args.reverse();
-  }
-  return x => args.reduce((acc, el, ind) => el * Math.pow(x, ind), 0);
+  if (!args) return args;
+  args.reverse();
+  return x => args.reduce((acc, el, ind) => acc + el * Math.pow(x, ind), 0);
 }
 
 
@@ -151,8 +148,13 @@ export function retry(func, attempts) {
  *
  */
 export function logger(func, logFunc) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return (...args) => {
+    const argsString = JSON.stringify(args).slice(1, -1);
+    logFunc(`${func.name}(${argsString}) starts`);
+    const res = func(...args);
+    logFunc(`${func.name}(${argsString}) ends`);
+    return res;
+  };
 }
 
 

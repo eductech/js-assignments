@@ -32,7 +32,19 @@
  *
  */
 export function* get99BottlesOfBeer() {
-  throw new Error('Not implemented');
+  const pluralizeBottles = count => count !== 1 ? 'bottles' : 'bottle';
+  const takeNext = next => next >= 1 ? next.toString() : 'No more';
+  for (let i = 99; i >= 0; i--) {
+    const bottle = pluralizeBottles(i);
+    const bottleNext = pluralizeBottles(i-1);
+    const left = takeNext(i);
+    const toTake = i >= 1 ? 'one' : 'no more';
+    const toTakeNext = takeNext(i-1);
+    const line1 = `${left} ${bottle} of beer on the wall, ${left.toLowerCase()} ${bottle} of beer.`;
+    const line2 = `Take ${toTake} down and pass it around, ${toTakeNext.toLowerCase()} ${bottleNext} of beer on the wall.`;
+    yield `${line1}`;
+    yield `${i > 0 ? line2 : 'Go to the store and buy some more, 99 bottles of beer on the wall.'}`;
+  }
 }
 
 
@@ -46,7 +58,18 @@ export function* get99BottlesOfBeer() {
  *
  */
 export function* getFibonacciSequence() {
-  throw new Error('Not implemented');
+  let fn1 = 0;
+  let fn2 = 1;
+  while (true) {  
+    const current = fn1;
+    fn1 = fn2;
+    fn2 = current + fn1;
+    const reset = yield current;
+    if (reset) {
+      fn1 = 0;
+      fn2 = 1;
+    }
+  }
 }
 
 

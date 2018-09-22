@@ -476,8 +476,8 @@ export function getIdentityMatrix(n) {
  *     3, 3   => [ 3 ]
  */
 export function getIntervalArray(start, end) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  const arr = Array.apply(null, new Array(end - start + 1));
+  return arr.map((el, ind) => start + ind);
 }
 
 /**
@@ -526,8 +526,19 @@ export function distinct(arr) {
  *   }
  */
 export function group(array, keySelector, valueSelector) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  const map = new Map();
+  const createMap = function (v, i) {
+    const curKey = keySelector(v);
+    const curValue = valueSelector(v);
+    if (map.has(curKey)) {
+      const arr = map.get(curKey);
+      arr.push(curValue);
+    } else {
+      map.set(curKey, [curValue]);
+    }
+  };
+  array.map(createMap);
+  return map;
 }
 
 
@@ -545,8 +556,8 @@ export function group(array, keySelector, valueSelector) {
  *   ['one','two','three'], x=>x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
 export function selectMany(arr, childrenSelector) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  const newArr = arr.map(el => childrenSelector(el));
+  return newArr.reduce((prev, curr) => prev.concat(curr));
 }
 
 
@@ -563,8 +574,8 @@ export function selectMany(arr, childrenSelector) {
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
 export function getElementByIndexes(arr, indexes) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  const branch = indexes.map(el => arr = arr[el]);
+  return branch[branch.length - 1];
 }
 
 
