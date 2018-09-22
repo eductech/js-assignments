@@ -317,11 +317,7 @@ export function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 export function getPositivesCount(arr) {
-  return arr.reduce((acc, el) => { 
-    if (typeof el === 'number') {
-      return el > 0 ? acc + 1 : acc;
-    }
-  }, 0);
+  return arr.filter(el => typeof el === 'number' && el > 0).length;
 }
 
 /**
@@ -338,8 +334,8 @@ export function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 export function sortDigitNamesByNumericOrder(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  const example = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+  return arr.sort((a, b) => (example.indexOf(a) > example.indexOf(b)) ? 1 : -1);
 }
 
 /**
@@ -434,8 +430,13 @@ export function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  */
 export function sortCitiesArray(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  const sortFunction = function (a, b) {
+    if (a.country === b.country) {
+      return a.city > b.city ? 1 : -1; 
+    } 
+    return a.country > b.country ? 1 : -1;
+  };
+  return arr.sort(sortFunction);
 }
 
 /**
@@ -457,8 +458,8 @@ export function sortCitiesArray(arr) {
  *           [0,0,0,0,1]]
  */
 export function getIdentityMatrix(n) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  const a = Array.apply(null, new Array(n)); 
+  return a.map((x, i) => a.map((y, k) => i === k ? 1 : 0));
 }
 
 /**
@@ -491,8 +492,7 @@ export function getIntervalArray(start, end) {
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
 export function distinct(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  return arr.filter((el, ind, arr) => arr.indexOf(el) === ind);
 }
 
 /**
@@ -587,8 +587,10 @@ export function getElementByIndexes(arr, indexes) {
  *
  */
 export function swapHeadAndTail(arr) {
-  /* implement your code here */
-  throw new Error('Not implemented');
+  const part = Math.floor(arr.length / 2);
+  const head = arr.splice(0, part);
+  const tail = arr.splice(-part, part);
+  return tail.concat(arr, head);
 }
 
 const tasks = {
